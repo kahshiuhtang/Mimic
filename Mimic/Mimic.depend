@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1700880224 source:/home/kahshiuh/Desktop/kahshiuh/Mimic/Mimic/main.cpp
+	<iostream>
+
+1700880150 source:/home/kahshiuh/Desktop/kahshiuh/Mimic/Mimic/market/stock.cpp
+
