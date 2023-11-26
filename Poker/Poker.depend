@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1701030382 source:/home/kahshiuh/Desktop/kahshiuh/Mimic/Poker/Game.cpp
+
+1701031274 source:/home/kahshiuh/Desktop/kahshiuh/Mimic/Poker/main.cpp
+	<iostream>
+	"Deck.hpp"
+
+1701030409 source:/home/kahshiuh/Desktop/kahshiuh/Mimic/Poker/Player.cpp
+
+1701031242 /home/kahshiuh/Desktop/kahshiuh/Mimic/Poker/Deck.hpp
+	"Card.hpp"
+
+1701031899 /home/kahshiuh/Desktop/kahshiuh/Mimic/Poker/Card.hpp
+	<string>
+
