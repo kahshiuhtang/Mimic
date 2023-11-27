@@ -1,10 +1,10 @@
 #include <iostream>
-#include "Deck.hpp"
+#include "Game.hpp"
 using namespace std;
 
 int main()
 {
     cout << "Hello world!" << endl;
-    Card c;
+    Game g;
     return 0;
 }
