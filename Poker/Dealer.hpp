@@ -6,9 +6,11 @@ class Dealer{
 public:
     bool showCards(int numCards);
     bool dealCards();
-public:
-    std::vector<Deck> m_Decks;
     bool newDeck();
+    Dealer(int numDecks);
+private:
+    std::vector<Deck> m_Decks;
+    int m_CurrentDecks;
 };
 
 #endif // DEALER_HPP_INCLUDED
