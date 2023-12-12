@@ -14,11 +14,13 @@ public:
     Player * checkWinner();
     int nextTurn();
 private:
+    enum GAMESTATE{WAITING, PREFLOP, FLOP, TURN, RIVER};
     std::vector<Player> m_Players;
     Player * m_CurrentPlayer;
     int m_Turn;
     int m_CurrentRound;
     int m_BigBlindIndex;
+    GAMESTATE m_GameState;
 };
 
 

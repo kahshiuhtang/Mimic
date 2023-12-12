@@ -23,8 +23,9 @@
 	"Dealer.hpp"
 	<vector>
 
-1701046226 /home/kahshiuh/Desktop/kahshiuh/Mimic/Poker/Player.hpp
+1701571805 /home/kahshiuh/Desktop/kahshiuh/Mimic/Poker/Player.hpp
 	<utility>
+	"Card.hpp"
 
 1701495549 /home/kahshiuh/Desktop/kahshiuh/Mimic/Poker/Dealer.hpp
 	"Deck.hpp"
