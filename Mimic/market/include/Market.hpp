@@ -5,9 +5,10 @@
 #include <string>
 #include "Stock.hpp"
 class Market{
+    enum mode{RANDOM, LOADED};
 public:
     std::unordered_map<std::string, Stock> nameToStockMap;
-
+    bool setMode(mode m);
 private:
 
 };
