@@ -13,6 +13,7 @@ public:
     bool bet();
     Player * checkWinner();
     int nextTurn();
+    bool start();
 private:
     enum GAMESTATE{WAITING, PREFLOP, FLOP, TURN, RIVER};
     std::vector<Player> m_Players;

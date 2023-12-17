@@ -1,3 +1,5 @@
+#include <string>
+#include "Game.hpp"
 bool Game::addPlayer(){
     if(m_GameState != WAITING){
         return false;
@@ -23,4 +25,15 @@ Player* Game::checkWinner(){
 }
 int Game::nextTurn(){
 
+}
+
+bool Game::start(){
+    std::string input;
+    while(true){
+        std::cout << "> ";
+        std::getline(std::cin, input);
+        if (input == "exit" || input == "quit") {
+            break;
+        }
+    }
 }
