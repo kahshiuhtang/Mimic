@@ -1,5 +1,5 @@
 #include "Deck.hpp"
-#include<cstdlib>
+#include <cstdlib>
 Deck::Deck(){
     for(int i = 0; i < m_DECK_SIZE; i++){
         m_pDrawn[i] = false;

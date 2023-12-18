@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "Game.hpp"
 bool Game::addPlayer(){
     if(m_GameState != WAITING){

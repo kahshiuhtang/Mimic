@@ -13,7 +13,6 @@ set(LIBRARY_HEADERS
     ${LIBRARY_HEADERS_DIR}/Deck.hpp
     ${LIBRARY_HEADERS_DIR}/HandEvaluator.hpp
     ${LIBRARY_HEADERS_DIR}/Player.hpp
-    ${LIBRARY_HEADERS_DIR}/Game.hpp
 )
 set(LIBRARY_SOURCE_DIR
     src
@@ -25,7 +24,6 @@ set(LIBRARY_SOURCE
     ${LIBRARY_SOURCE_DIR}/Game.cpp
     ${LIBRARY_SOURCE_DIR}/Player.cpp
 )
-
 
 project(${PROJECT_NAME})
 
