@@ -7,4 +7,5 @@ Player::Player(std::string name, int startingChips) :
 }
 bool Player::updateChips(int chipDifference){
     m_nTotalChips += chipDifference;
+    return false;
 }

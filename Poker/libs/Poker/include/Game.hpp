@@ -1,7 +1,7 @@
 #ifndef GAME_HPP_INCLUDED
 #define GAME_HPP_INCLUDED
-#include "Player.hpp"
-#include "Dealer.hpp"
+#include "Poker/Player.hpp"
+#include "Poker/Dealer.hpp"
 #include <vector>
 class Game{
 public:

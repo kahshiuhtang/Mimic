@@ -5,6 +5,7 @@ bool Game::addPlayer(){
     if(m_GameState != WAITING){
         return false;
     }
+    return true;
 }
 bool Game::startGame(){
     if(m_GameState == WAITING){
@@ -14,18 +15,22 @@ bool Game::startGame(){
     return false;
 }
 bool Game::nextRound(){
+    return true;
 }
 bool Game::revealCards(){
+    return true;
 }
 bool Game::dealCards(){
+    return true;
 }
 bool Game::bet(){
+    return true;
 }
 Player* Game::checkWinner(){
     return nullptr;
 }
 int Game::nextTurn(){
-
+    return 0;
 }
 
 bool Game::start(){
@@ -37,4 +42,5 @@ bool Game::start(){
             break;
         }
     }
+    return true;
 }

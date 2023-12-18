@@ -7,13 +7,14 @@ class Player{
 public:
     enum Move{CALL, RAISE, CHECK, FOLD};
     bool placeMove();
-    bool updateChips();
+    bool updateChips(int numChips);
     Player(std::string name);
+    Player(std::string name, int startingChips);
 private:
     float m_nTotalChips;
     std::string m_sId;
     std::string m_sName;
-    int m_nWins;
+    int m_nTotalWins;
 };
 
 #endif // PLAYER_HPP_INCLUDED

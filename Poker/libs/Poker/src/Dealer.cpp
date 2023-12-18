@@ -8,7 +8,8 @@ Dealer::Dealer(int numDecks)
 }
 
 bool Dealer::showCards(int numCards){
+    return true;
 }
 bool Dealer::dealCards(){
-
+    return false;
 }
