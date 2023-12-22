@@ -1,15 +1,15 @@
 #include "Dealer.hpp"
-
-Dealer::Dealer(int numDecks)
-: m_CurrentDecks(numDecks){
-    for(int i = 0; i < numDecks; i++){
-
+#include <vector>
+std::vector<Card> Dealer::dealCards(int numCards)
+{
+    std::vector<Card> drawnCards;
+    for (int i = 0; i < numCards; i++)
+    {
+        drawnCards.push_back(m_CurrentDeck.drawCard());
     }
+    return drawnCards;
 }
-
-bool Dealer::showCards(int numCards){
-    return true;
-}
-bool Dealer::dealCards(){
-    return false;
+bool Dealer::resetDeck()
+{
+    return m_CurrentDeck.resetDeck();
 }

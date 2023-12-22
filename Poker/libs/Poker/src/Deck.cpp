@@ -1,30 +1,46 @@
 #include "Deck.hpp"
 #include <cstdlib>
-Deck::Deck(){
-    for(int i = 0; i < m_DECK_SIZE; i++){
-        m_pDrawn[i] = false;
-        Card currCard(Card::Suite(i % 4), Card::Value(i % 13));
-        m_pDeckArray[i] = currCard;
-    }
+#include <algorithm>
+Deck::Deck() : m_numRemainingCards(52)
+{
+    fillDeck();
 }
 
-Card Deck::drawCard(){
-    bool needIndex = true;
-    Card drawnCard;
-    while(needIndex){
-        int randIdx = rand() % 52;
-        if(m_pDrawn[randIdx] == false){
-            needIndex = false;
-            m_pDrawn[randIdx] = true;
-            drawnCard = m_pDeckArray[randIdx];
-        }
+Card Deck::drawCard()
+{
+    if (m_numRemainingCards <= 0)
+    {
     }
+    Card drawnCard;
+    int randIdx = rand() % m_numRemainingCards;
+    drawnCard = m_pDeckArray[randIdx];
+    m_numRemainingCards -= 1;
+    std::swap(m_pDeckArray[randIdx], m_pDeckArray[m_numRemainingCards]);
     return drawnCard;
 }
-std::vector<Card> Deck::drawCards(int numCards){
+std::vector<Card> Deck::drawCards(int numCards)
+{
     std::vector<Card> drawnCards;
-    for(int i = 0; i < numCards; i++){
+    for (int i = 0; i < numCards; i++)
+    {
         drawnCards.push_back(drawCard());
     }
     return drawnCards;
+}
+
+bool Deck::resetDeck()
+{
+    m_pDeckArray.clear();
+    m_numRemainingCards = 52;
+    fillDeck();
+    return true;
+}
+
+bool Deck::fillDeck()
+{
+    for (int i = 0; i < m_DECK_SIZE; i++)
+    {
+        Card currCard(Card::Suite(i % 4), Card::Value(i % 13));
+        m_pDeckArray[i] = currCard;
+    }
 }
