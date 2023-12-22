@@ -7,7 +7,7 @@
 #include "Dealer.hpp"
 Game::Game() : m_Turn(0), m_CurrentGameState(WAITING), m_BigBlindIndex(0), m_CurrentRound(0)
 {
-    std::unique_ptr<Dealer> m_Dealer = std::make_unique<Dealer>(1);
+    std::unique_ptr<Dealer> m_Dealer = std::make_unique<Dealer>();
 }
 bool Game::addPlayer(std::string name, int startingChips)
 {
@@ -16,6 +16,7 @@ bool Game::addPlayer(std::string name, int startingChips)
         return false;
     }
     m_Players.push_back(std::make_unique<Player>(name, startingChips));
+    m_CurrentBets.push_back(0);
     return true;
 }
 bool Game::startGame()
@@ -36,20 +37,17 @@ bool Game::nextRound()
     m_CurrentRound += 1;
     return true;
 }
-bool Game::revealCards()
+std::vector<Card> Game::revealCards()
 {
     if (m_CurrentGameState == WAITING || m_CurrentGameState == PREFLOP)
     {
-        return false;
     }
-    std::vector<std::unique_ptr<Card>> *cards;
-    if (m_CurrentGameState == FLOP)
+    int cardsToReveal = 1;
+    if (m_CurrentGameState == TURN || m_CurrentGameState == RIVER)
     {
+        cardsToReveal = 2;
     }
-    else if (m_CurrentGameState == TURN || m_CurrentGameState == RIVER)
-    {
-    }
-    return true;
+    return m_Dealer->dealCards(cardsToReveal);
 }
 bool Game::dealCards()
 {
@@ -57,10 +55,12 @@ bool Game::dealCards()
 }
 bool Game::bet()
 {
+
     return true;
 }
 Player *Game::checkWinner()
 {
+
     return nullptr;
 }
 int Game::nextTurn()

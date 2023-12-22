@@ -2,6 +2,7 @@
 #define GAME_HPP_INCLUDED
 #include "Poker/Player.hpp"
 #include "Poker/Dealer.hpp"
+#include "Poker/Card.hpp"
 #include <vector>
 #include <memory>
 class Game
@@ -11,7 +12,7 @@ public:
     bool addPlayer(std::string name, int startingChips);
     bool startGame();
     bool nextRound();
-    bool revealCards();
+    std::vector<Card> revealCards();
     bool dealCards();
     bool bet();
     Player *checkWinner();
@@ -29,6 +30,8 @@ private:
     };
     std::vector<std::unique_ptr<Player>> m_Players;
     std::unique_ptr<Dealer> m_Dealer;
+    std::vector<int> m_CurrentBets;
+    std::vector<Card> m_Board;
     int m_Turn;
     int m_CurrentRound;
     int m_BigBlindIndex;

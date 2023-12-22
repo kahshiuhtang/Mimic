@@ -2,15 +2,14 @@
 #define DEALER_HPP_INCLUDED
 #include "Deck.hpp"
 #include <vector>
-class Dealer{
+class Dealer
+{
 public:
-    bool showCards(int numCards);
-    bool dealCards();
-    bool newDeck();
-    Dealer(int numDecks);
+    std::vector<Card> dealCards(int numCards);
+    bool resetDeck();
+
 private:
-    std::vector<Deck> m_Decks;
-    int m_CurrentDecks;
+    Deck m_CurrentDeck;
 };
 
 #endif // DEALER_HPP_INCLUDED
