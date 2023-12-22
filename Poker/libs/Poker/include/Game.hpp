@@ -3,26 +3,36 @@
 #include "Poker/Player.hpp"
 #include "Poker/Dealer.hpp"
 #include <vector>
-class Game{
+#include <memory>
+class Game
+{
 public:
-    bool addPlayer();
+    Game();
+    bool addPlayer(std::string name, int startingChips);
     bool startGame();
     bool nextRound();
     bool revealCards();
     bool dealCards();
     bool bet();
-    Player * checkWinner();
+    Player *checkWinner();
     int nextTurn();
     bool start();
+
 private:
-    enum GAMESTATE{WAITING, PREFLOP, FLOP, TURN, RIVER};
-    std::vector<Player> m_Players;
-    Player * m_CurrentPlayer;
+    enum GAMESTATE
+    {
+        WAITING,
+        PREFLOP,
+        FLOP,
+        TURN,
+        RIVER
+    };
+    std::vector<std::unique_ptr<Player>> m_Players;
+    std::unique_ptr<Dealer> m_Dealer;
     int m_Turn;
     int m_CurrentRound;
     int m_BigBlindIndex;
-    GAMESTATE m_GameState;
+    GAMESTATE m_CurrentGameState;
 };
-
 
 #endif // GAME_HPP_INCLUDED
