@@ -1,5 +1,8 @@
 #include "Dealer.hpp"
 #include <vector>
+Dealer::Dealer()
+{
+}
 std::vector<Card> Dealer::dealCards(int numCards)
 {
     std::vector<Card> drawnCards;

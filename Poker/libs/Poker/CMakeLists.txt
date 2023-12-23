@@ -41,3 +41,13 @@ target_include_directories(${LIBRARY_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
+set(LIBRARY_TESTS_SOURCE 
+    tests)
+enable_testing()
+add_executable(tests ${LIBRARY_TESTS_SOURCE}/tests_handEvaluator.cpp)
+target_link_libraries(
+  tests
+  GTest::gtest_main
+)
+include(GoogleTest)
+gtest_discover_tests(tests)

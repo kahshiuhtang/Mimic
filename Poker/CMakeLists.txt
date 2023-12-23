@@ -33,10 +33,20 @@ set(MPOKER_LIBRARIES
 
 project(${MPOKER_PROJECT_NAME})
 
+include(FetchContent)
+
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+enable_testing()
+
 add_executable(${MPOKER_PROJECT_NAME} ${MPOKER_SOURCE})
 
 foreach(LIBRARY ${MPOKER_LIBRARIES})
     add_subdirectory("${MPOKER_LIBRARIES_DIR}/${LIBRARY}")
 endforeach(LIBRARY)
 target_link_libraries(${MPOKER_PROJECT_NAME} ${MPOKER_LIBRARIES})
-

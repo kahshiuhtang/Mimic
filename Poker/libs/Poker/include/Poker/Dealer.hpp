@@ -5,6 +5,7 @@
 class Dealer
 {
 public:
+    Dealer();
     std::vector<Card> dealCards(int numCards);
     bool resetDeck();
 
