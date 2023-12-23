@@ -1,15 +1,9 @@
 # Mimic
 
-Market Strategy Simulator
+Poker + Market Simulator App
 
 ## Description
 
-A C++ GUI application that allows users their trading strategies & portfolio makeups on previous data or generated data.
+A C++ application
 
-## Getting Started
 
-### Dependencies
-
-### Installing
-
-## Authors
