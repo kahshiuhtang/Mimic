@@ -38,7 +38,7 @@ bool Deck::resetDeck()
 
 bool Deck::fillDeck()
 {
-    for (int i = 0; i < m_DECK_SIZE; i++)
+    for (int i = 0; i < DECK_SIZE; i++)
     {
         Card currCard(Card::Suite(i % 4), Card::Value(i % 13));
         m_pDeckArray[i] = currCard;

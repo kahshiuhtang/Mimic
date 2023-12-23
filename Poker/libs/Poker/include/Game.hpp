@@ -3,6 +3,7 @@
 #include "Poker/Player.hpp"
 #include "Poker/Dealer.hpp"
 #include "Poker/Card.hpp"
+#include "Poker/HandEvaluator.hpp"
 #include <vector>
 #include <memory>
 class Game
@@ -36,6 +37,7 @@ private:
     int m_CurrentRound;
     int m_BigBlindIndex;
     GAMESTATE m_CurrentGameState;
+    HandEvaluator evaluator;
 };
 
 #endif // GAME_HPP_INCLUDED
