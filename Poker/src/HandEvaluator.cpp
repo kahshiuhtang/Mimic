@@ -1,5 +1,5 @@
-#include "HandEvaluator.hpp"
-#include "Card.hpp"
+#include "Poker/HandEvaluator.hpp"
+#include "Poker/Card.hpp"
 #include <vector>
 #include <memory>
 

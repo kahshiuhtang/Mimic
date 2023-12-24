@@ -2,9 +2,9 @@
 #include <iostream>
 #include <memory>
 #include "Game.hpp"
-#include "Player.hpp"
-#include "Card.hpp"
-#include "Dealer.hpp"
+#include "Poker/Player.hpp"
+#include "Poker/Card.hpp"
+#include "Poker/Dealer.hpp"
 Game::Game() : m_Turn{0}, m_CurrentGameState{WAITING}, m_BigBlindIndex{0}, m_CurrentRound{0}
 {
     std::unique_ptr<Dealer> m_Dealer = std::make_unique<Dealer>();

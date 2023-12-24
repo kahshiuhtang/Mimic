@@ -1,21 +1,27 @@
-#include "Card.hpp"
+#include "Poker/Card.hpp"
 #include <stdlib.h>
-Card::Card(){
+Card::Card()
+{
     m_Suite = Suite(rand() % 5);
     m_Value = Value(rand() % 14);
 }
-Card::Card(Suite s, Value v){
+Card::Card(Suite s, Value v)
+{
     m_Suite = s;
     m_Value = v;
 }
-Card::Suite Card::getSuite(){
+Card::Suite Card::getSuite()
+{
     return m_Suite;
 }
-Card::Value Card::getValue(){
+Card::Value Card::getValue()
+{
     return m_Value;
 }
-std::string Card::getSuiteString(){
-    switch(m_Suite){
+std::string Card::getSuiteString()
+{
+    switch (m_Suite)
+    {
     case HEART:
         return "HEART";
     case SPADE:
@@ -28,8 +34,10 @@ std::string Card::getSuiteString(){
     return "";
 }
 
-std::string Card::getValueString(){
-    switch(m_Value){
+std::string Card::getValueString()
+{
+    switch (m_Value)
+    {
     case ACE:
         return "ACE";
     case KING:
@@ -59,4 +67,3 @@ std::string Card::getValueString(){
     }
     return "";
 }
-

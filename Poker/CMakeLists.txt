@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_library(compiler_flags INTERFACE)
-target_compile_features(compiler_flags INTERFACE cxx_std_11)
+target_compile_features(compiler_flags INTERFACE cxx_std_14)
 
 # add compiler warning flags just when building this project via
 # the BUILD_INTERFACE genex
@@ -22,31 +22,32 @@ set(MPOKER_PROJECT_NAME
 set(MPOKER_SOURCE_DIR 
     src)
 
-set(MPOKER_SOURCE
-    ${MPOKER_SOURCE_DIR}/main.cpp)
+set(MPOKER_EXEC_DIR
+    exec)
 
 set(MPOKER_LIBRARIES_DIR
     libs)
 
-set(MPOKER_LIBRARIES
-    Poker)
+set(MPOKER_TESTS_DIR
+    tests)   
+
 
 project(${MPOKER_PROJECT_NAME})
 
-include(FetchContent)
+option(TEST "Test" OFF) #  -DTEST=ON
+option(DEBUG "Debug" OFF) # -DDEBUG=ON
 
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-)
+if (${DEBUG})
+    message("[DEBUG] Build")
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
 
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
-enable_testing()
+include_directories(include)
 
-add_executable(${MPOKER_PROJECT_NAME} ${MPOKER_SOURCE})
+add_subdirectory(${MPOKER_SOURCE_DIR})
+add_subdirectory(${MPOKER_EXEC_DIR})
 
-foreach(LIBRARY ${MPOKER_LIBRARIES})
-    add_subdirectory("${MPOKER_LIBRARIES_DIR}/${LIBRARY}")
-endforeach(LIBRARY)
-target_link_libraries(${MPOKER_PROJECT_NAME} ${MPOKER_LIBRARIES})
+if (${TEST})
+    message("[Tests] Building...")
+    add_subdirectory(${MPOKER_TESTS_DIR})
+endif()

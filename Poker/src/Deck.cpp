@@ -1,4 +1,4 @@
-#include "Deck.hpp"
+#include "Poker/Deck.hpp"
 #include <cstdlib>
 #include <algorithm>
 Deck::Deck() : m_numRemainingCards(52)

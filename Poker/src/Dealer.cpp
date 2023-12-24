@@ -1,4 +1,4 @@
-#include "Dealer.hpp"
+#include "Poker/Dealer.hpp"
 #include <vector>
 Dealer::Dealer()
 {
