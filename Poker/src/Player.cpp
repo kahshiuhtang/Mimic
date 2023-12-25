@@ -1,4 +1,4 @@
-#include "Poker/Player.hpp"
+#include "poker/player.hpp"
 
 Player::Player(std::string name, int startingChips) : m_sName(name), m_nTotalChips(startingChips)
 {

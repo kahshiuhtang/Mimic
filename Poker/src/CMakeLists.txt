@@ -1,10 +1,10 @@
 set(SRC_FILES   
-    Card.cpp
-    Dealer.cpp
-    Deck.cpp
-    Game.cpp
-    HandEvaluator.cpp
-    Player.cpp
+    card.cpp
+    dealer.cpp
+    deck.cpp
+    game.cpp
+    hand_evaluator.cpp
+    player.cpp
     )
 
 add_library(source_lib ${SRC_FILES})

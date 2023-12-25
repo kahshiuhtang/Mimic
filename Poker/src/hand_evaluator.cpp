@@ -1,5 +1,5 @@
-#include "Poker/HandEvaluator.hpp"
-#include "Poker/Card.hpp"
+#include "poker/hand_evaluator.hpp"
+#include "poker/card.hpp"
 #include <vector>
 #include <memory>
 
@@ -51,18 +51,22 @@ std::unique_ptr<HandEvaluator::Hand> HandEvaluator::getBestHand(std::vector<Card
 // Ace->10, same suite
 bool HandEvaluator::isRoyalFlush(const std::unique_ptr<Hand> &bestHand, std::vector<Card> board, std::vector<Card> hand)
 {
+    return false;
 }
 // Same Suite
 bool HandEvaluator::isStraightFlush(const std::unique_ptr<Hand> &bestHand, std::vector<Card> board, std::vector<Card> hand)
 {
+    return false;
 }
 // Four of the same
 bool HandEvaluator::isQuad(const std::unique_ptr<Hand> &bestHand, std::vector<Card> board, std::vector<Card> hand)
 {
+    return false;
 }
 // Three and Two
 bool HandEvaluator::isFullHouse(const std::unique_ptr<Hand> &bestHand, std::vector<Card> board, std::vector<Card> hand)
 {
+    return false;
 }
 // Five from one color
 bool HandEvaluator::isFlush(const std::unique_ptr<Hand> &bestHand, std::vector<Card> board, std::vector<Card> hand)
@@ -108,6 +112,8 @@ bool HandEvaluator::isStraight(const std::unique_ptr<Hand> &bestHand, std::vecto
     {
         values[c->getValue()]++;
     }
+
+    return false;
 }
 bool HandEvaluator::isTrips(const std::unique_ptr<Hand> &bestHand, std::vector<Card> board, std::vector<Card> hand)
 {
@@ -157,7 +163,7 @@ bool HandEvaluator::isTwoPair(const std::unique_ptr<Hand> &bestHand, std::vector
         if (values[i] >= 2)
         {
             highestValues[nextIndexToUse] = Card::Value(i);
-            (nextIndexToUse + 1) % 2;
+            nextIndexToUse = (nextIndexToUse + 1) % 2;
             foundPairs += 1;
         }
     }

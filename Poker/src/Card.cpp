@@ -1,4 +1,4 @@
-#include "Poker/Card.hpp"
+#include "poker/card.hpp"
 #include <stdlib.h>
 Card::Card()
 {

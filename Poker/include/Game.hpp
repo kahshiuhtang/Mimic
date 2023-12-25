@@ -1,9 +1,9 @@
 #ifndef GAME_HPP_INCLUDED
 #define GAME_HPP_INCLUDED
-#include "Poker/Player.hpp"
-#include "Poker/Dealer.hpp"
-#include "Poker/Card.hpp"
-#include "Poker/HandEvaluator.hpp"
+#include "poker/player.hpp"
+#include "poker/dealer.hpp"
+#include "poker/card.hpp"
+#include "poker/hand_evaluator.hpp"
 #include <vector>
 #include <memory>
 class Game

@@ -5,15 +5,15 @@ Poker Simulator
 ## Installation
 
 ```bash
-mkdir bin
+$ mkdir build
 
-cd bin
+$ cd build
 
-cmake ../
+$ cmake ..
 
-cmake --build .
+$ make
 
-./MPoker
+$ ./MPoker
 ```
 
 ## Tests
@@ -22,5 +22,7 @@ Tests are written with Google's GTest
 
 To run:
 ```bash
-ctest
+$ cmake -DTest=ON ..
+
+$ ./tests/tests
 ```

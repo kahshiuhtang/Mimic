@@ -1,6 +1,6 @@
 #ifndef HANDEVALUATOR_HPP_INCLUDED
 #define HANDEVALUATOR_HPP_INCLUDED
-#include "Card.hpp"
+#include "card.hpp"
 #include <vector>
 #include <memory>
 class HandEvaluator

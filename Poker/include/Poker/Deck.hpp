@@ -1,6 +1,6 @@
 #ifndef DECK_HPP_INCLUDED
 #define DECK_HPP_INCLUDED
-#include "Card.hpp"
+#include "card.hpp"
 #include <vector>
 class Deck
 {

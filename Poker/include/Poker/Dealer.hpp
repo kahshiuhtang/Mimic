@@ -1,6 +1,6 @@
 #ifndef DEALER_HPP_INCLUDED
 #define DEALER_HPP_INCLUDED
-#include "Deck.hpp"
+#include "deck.hpp"
 #include <vector>
 class Dealer
 {
