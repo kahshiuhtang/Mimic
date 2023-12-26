@@ -36,6 +36,7 @@ project(${MPOKER_PROJECT_NAME})
 
 option(TEST "Test" OFF) #  -DTEST=ON
 option(DEBUG "Debug" OFF) # -DDEBUG=ON
+option(VERBOSE "Test" OFF) #  -DTEST=ON
 
 if (${DEBUG})
     message("[DEBUG] Build")

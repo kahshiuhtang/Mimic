@@ -13,12 +13,14 @@ public:
     bool addPlayer(std::string name, int startingChips);
     bool startGame();
     bool nextRound();
-    std::vector<Card> revealCards();
+    bool start();
     bool dealCards();
     bool bet();
-    Player *checkWinner();
+
     int nextTurn();
-    bool start();
+
+    std::vector<Card> revealCards();
+    Player *checkWinner();
 
 private:
     enum GAMESTATE

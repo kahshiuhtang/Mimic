@@ -11,7 +11,7 @@ FetchContent_MakeAvailable(googletest)
 
 # Test files
 set(TEST_SOURCES
-  test.cpp
+  hand_eval_tests.cpp
 )
 
 enable_testing()
@@ -24,7 +24,7 @@ add_executable(tests ${TEST_SOURCES})
 target_link_libraries(
   tests
   # cppzmq
-  src_lib 
+  source_lib 
   GTest::gtest_main
 )
 

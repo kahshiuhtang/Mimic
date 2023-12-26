@@ -6,9 +6,6 @@
 class HandEvaluator
 {
 public:
-    const int DECK_SIZE = 52;
-    const int NUM_CARD_SUITES = 4;
-    const int NUM_CARD_VALUES = 13;
     enum HandType
     {
         ROYALFLUSH,
@@ -28,6 +25,9 @@ public:
         Card cards[5];
         Hand(){};
     };
+    const int DECK_SIZE = 52;
+    const int NUM_CARD_SUITES = 4;
+    const int NUM_CARD_VALUES = 13;
     std::unique_ptr<HandEvaluator::Hand> getBestHand(std::vector<Card> board, std::vector<Card> hand);
 
 private:

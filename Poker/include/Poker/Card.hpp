@@ -27,10 +27,13 @@ public:
         KING,
         ACE
     };
+
+    Card();
+    Card(Suite s, Value v);
+
     Suite getSuite();
     Value getValue();
-    Card(Suite s, Value v);
-    Card();
+
     std::string getSuiteString();
     std::string getValueString();
 
