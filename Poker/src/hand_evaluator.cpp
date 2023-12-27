@@ -62,6 +62,9 @@ bool HandEvaluator::isStraightFlush(const std::unique_ptr<Hand> &bestHand, std::
     {
         countPerValue[c->getValue()]++;
     }
+    for (int i = 0; i < NUM_CARD_VALUES; i++)
+    {
+    }
     return false;
 }
 // Four of the same
