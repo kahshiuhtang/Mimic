@@ -38,15 +38,20 @@ option(TEST "Test" OFF) #  -DTEST=ON
 option(DEBUG "Debug" OFF) # -DDEBUG=ON
 option(VERBOSE "Test" OFF) #  -DTEST=ON
 
+add_compile_definitions(WARN)
+add_compile_definitions(SUCCESS)
+add_compile_definitions(ERROR)
 if (${DEBUG})
     message("[DEBUG] Build")
     set(CMAKE_BUILD_TYPE Debug)
+    add_compile_definitions(VERBOSE)
+    add_compile_definitions(DEBUG)
 endif()
 
 include_directories(include)
 
 add_subdirectory(${MPOKER_SOURCE_DIR})
-add_subdirectory(${MPOKER_EXEC_DIR})
+# add_subdirectory(${MPOKER_EXEC_DIR})
 
 if (${TEST})
     message("[Tests] Building...")
