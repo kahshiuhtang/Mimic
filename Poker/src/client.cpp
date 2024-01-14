@@ -6,11 +6,51 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <getopt.h>
+#include <iostream>
+#include <cstdlib>
 #define PORT 8080
-int main()
+int main(int argc, char *argv[])
 {
     int sock = 0, valread, client_fd;
     struct sockaddr_in serv_addr;
+    int SERVER_PORT;
+    while (true)
+    {
+        int option_index = 0;
+        static struct option long_options[] = {
+            {"help", no_argument, 0, 'h'},
+            {"port", required_argument, 0, 'p'},
+            {0, 0}};
+        int c = getopt_long(argc, argv, "-hp:", long_options, &option_index);
+        if (c == -1)
+        {
+            break;
+        }
+        switch (c)
+        {
+        case 'h':
+            std::cout << "Poker Server Application: \n"
+                      << "-h, --help: Displays HELP menu \n"
+                      << "-p, --port: Port server is hosted on. Default:8080\n";
+            return EXIT_SUCCESS;
+        case 'p':
+            if (!optarg)
+            {
+                std::cout << "Must enter a value" << std::endl;
+                return EXIT_FAILURE;
+            }
+            std::cout << optarg;
+            SERVER_PORT = atoi(optarg);
+            if (SERVER_PORT <= 1024)
+            {
+                std::cout << "SERVER port must be greater than 1024!" << std::endl;
+                std::cout << SERVER_PORT;
+                return EXIT_FAILURE;
+            }
+            break;
+        }
+    }
     char *hello = "Hello from client";
     char buffer[1024] = {0};
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
