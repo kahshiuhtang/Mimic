@@ -1,0 +1,2 @@
+/usr/bin/ar qc libPoker.a CMakeFiles/Poker.dir/src/Card.cpp.o CMakeFiles/Poker.dir/src/Dealer.cpp.o CMakeFiles/Poker.dir/src/Deck.cpp.o CMakeFiles/Poker.dir/src/Game.cpp.o CMakeFiles/Poker.dir/src/Player.cpp.o
+/usr/bin/ranlib libPoker.a

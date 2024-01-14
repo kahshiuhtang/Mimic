@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/MPoker.dir/src/main.cpp.o -o MPoker  libs/Poker/libPoker.a 
