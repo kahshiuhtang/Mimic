@@ -2,7 +2,9 @@
 #include "poker/card.hpp"
 #include <vector>
 #include <memory>
+HandEvaluator::HandEvaluator(){
 
+}
 std::unique_ptr<HandEvaluator::Hand> HandEvaluator::getBestHand(std::vector<Card> board, std::vector<Card> hand)
 {
     std::unique_ptr<Hand> bestHand = std::make_unique<Hand>();

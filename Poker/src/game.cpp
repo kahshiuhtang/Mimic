@@ -5,9 +5,11 @@
 #include "poker/player.hpp"
 #include "poker/card.hpp"
 #include "poker/dealer.hpp"
-Game::Game() : m_Turn{0}, m_CurrentGameState{WAITING}, m_BigBlindIndex{0}, m_CurrentRound{0}
+#include "poker/hand_evaluator.hpp"
+Game::Game() : m_Turn{0}, m_CurrentGameState{WAITING}, m_BigBlindIndex{0}, m_CurrentRound{0}, m_DealtPlayerCards{false}
 {
-    std::unique_ptr<Dealer> m_Dealer = std::make_unique<Dealer>();
+     m_Dealer = std::make_unique<Dealer>();
+     m_Evaluator = std::make_unique<HandEvaluator>();
 }
 bool Game::addPlayer(std::string name, int startingChips)
 {
@@ -15,7 +17,7 @@ bool Game::addPlayer(std::string name, int startingChips)
     {
         return false;
     }
-    m_Players.push_back(std::make_unique<Player>(name, startingChips));
+    m_Players.push_back(std::make_shared <Player>(name, startingChips));
     m_CurrentBets.push_back(0);
     return true;
 }
@@ -37,7 +39,7 @@ bool Game::nextRound()
     m_CurrentRound += 1;
     return true;
 }
-std::vector<Card> Game::revealCards()
+std::vector<std::shared_ptr<Card>> Game::revealCards()
 {
     if (m_CurrentGameState == WAITING || m_CurrentGameState == PREFLOP)
     {
@@ -51,16 +53,18 @@ std::vector<Card> Game::revealCards()
 }
 bool Game::dealCards()
 {
+    for(int i = 0; i < m_Players.size(); i++){
+        m_Players[i]->currentHand = m_Dealer->dealCards(CARDS_PER_PLAYER_HAND);
+    }
+    m_DealtPlayerCards = true;
     return true;
 }
-bool Game::bet()
-{
 
-    return true;
-}
-Player *Game::checkWinner()
+std::shared_ptr<Player> Game::checkWinner()
 {
+    for(int i = 0; i < m_Players.size(); i++){
 
+    }
     return nullptr;
 }
 int Game::nextTurn()
@@ -68,7 +72,7 @@ int Game::nextTurn()
     return 0;
 }
 
-bool Game::start()
+bool Game::startInputHandle()
 {
     std::string input;
     while (true)

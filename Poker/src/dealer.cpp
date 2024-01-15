@@ -3,9 +3,9 @@
 Dealer::Dealer()
 {
 }
-std::vector<Card> Dealer::dealCards(int numCards)
+std::vector<std::shared_ptr<Card>> Dealer::dealCards(int numCards)
 {
-    std::vector<Card> drawnCards;
+    std::vector<std::shared_ptr<Card>> drawnCards;
     for (int i = 0; i < numCards; i++)
     {
         drawnCards.push_back(m_CurrentDeck.drawCard());

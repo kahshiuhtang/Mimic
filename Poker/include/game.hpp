@@ -12,15 +12,17 @@ public:
     Game();
     bool addPlayer(std::string name, int startingChips);
     bool startGame();
+    bool startInputHandle();
     bool nextRound();
-    bool start();
     bool dealCards();
-    bool bet();
+    bool recordPlayerBet();
 
     int nextTurn();
 
-    std::vector<Card> revealCards();
-    Player *checkWinner();
+    std::vector<std::shared_ptr<Card>> revealCards();
+    std::shared_ptr<Player> checkWinner();
+
+    const int CARDS_PER_PLAYER_HAND = 2;
 
 private:
     enum GAMESTATE
@@ -31,15 +33,16 @@ private:
         TURN,
         RIVER
     };
-    std::vector<std::unique_ptr<Player>> m_Players;
+    std::vector<std::shared_ptr<Player>> m_Players;
     std::unique_ptr<Dealer> m_Dealer;
     std::vector<int> m_CurrentBets;
     std::vector<Card> m_Board;
     int m_Turn;
     int m_CurrentRound;
     int m_BigBlindIndex;
+    bool m_DealtPlayerCards;
     GAMESTATE m_CurrentGameState;
-    HandEvaluator evaluator;
+    std::unique_ptr<HandEvaluator> m_Evaluator;
 };
 
 #endif // GAME_HPP_INCLUDED

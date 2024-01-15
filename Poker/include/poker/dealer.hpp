@@ -6,7 +6,7 @@ class Dealer
 {
 public:
     Dealer();
-    std::vector<Card> dealCards(int numCards);
+    std::vector<std::shared_ptr<Card>> dealCards(int numCards);
     bool resetDeck();
 
 private:
