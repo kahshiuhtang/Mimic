@@ -8,6 +8,8 @@
 #include "poker/hand_evaluator.hpp"
 Game::Game() : m_Turn{0}, m_CurrentGameState{WAITING}, m_BigBlindIndex{0}, m_CurrentRound{0}, m_DealtPlayerCards{false}
 {
+     m_PrevStartingTurn = 0;
+     m_Turn = 0;
      m_Dealer = std::make_unique<Dealer>();
      m_Evaluator = std::make_unique<HandEvaluator>();
 }
@@ -35,6 +37,9 @@ bool Game::nextRound()
     if (m_CurrentGameState != RIVER)
     {
         return false;
+    }
+    for(int i = 0; i < m_CurrentBets.size(); i++){
+        
     }
     m_CurrentRound += 1;
     return true;
@@ -69,6 +74,7 @@ std::shared_ptr<Player> Game::checkWinner()
 }
 int Game::nextTurn()
 {
+    m_Turn = (m_Turn +1) % m_Players.size();
     return 0;
 }
 

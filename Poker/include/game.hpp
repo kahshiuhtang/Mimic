@@ -38,6 +38,7 @@ private:
     std::vector<int> m_CurrentBets;
     std::vector<Card> m_Board;
     int m_Turn;
+    int m_PrevStartingTurn;
     int m_CurrentRound;
     int m_BigBlindIndex;
     bool m_DealtPlayerCards;
