@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <set>
 
+#include "poker/client.hpp"
+
 #define MAX_INPUT_SIZE 128
 
 int main(int argc, char ** argv)
@@ -35,7 +37,6 @@ int main(int argc, char ** argv)
             std::size_t oldPos = pos;
             pos = currLine.find(DELIMITER, oldPos + 1);
             keyword = currLine.substr(oldPos + 1, pos - oldPos - 1);
-            std::cout << keyword;
             if(keyword.compare("user") == 0){
                 oldPos = pos;
                 pos = currLine.find(DELIMITER, pos + 1);

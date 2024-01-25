@@ -37,6 +37,7 @@ int Client::sendMessage(char * message){
     send(sock, message, strlen(message), 0);
     //valread = read(sock, buffer, 1024);
     //printf("%s\n", buffer);
+    return 1;
 }
 int Client::shutdown(){
     return close(client_fd);
