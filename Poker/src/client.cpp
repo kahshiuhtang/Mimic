@@ -1,15 +1,23 @@
 #include "debug.hpp"
-
-#include <arpa/inet.h>
-
-#include <stdio.h>
-#include <string.h>
-#include <sys/socket.h>
-#include <unistd.h>
-#include <getopt.h>
-#include <iostream>
-#include <cstdlib>
+#include "poker/client.hpp"
 #define PORT 8080
+
+    Client::Client(int serverPort) : 
+    SERVER_PORT{serverPort}{
+
+    }
+    Client::Client(int serverPort, std::string sourceAddress) : SERVER_PORT{serverPort}, serverAddr{sourceAddress}{
+
+    }
+    int Client::createClient(){
+
+    }
+    int Client::sendMessage(){
+
+    }
+    int Client::shutdown(){
+
+    }
 int main(int argc, char *argv[])
 {
     int sock = 0, valread, client_fd;
