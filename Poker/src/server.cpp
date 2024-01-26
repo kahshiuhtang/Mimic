@@ -3,8 +3,8 @@
 #include "errno.h"
 
 typedef struct {
-    pthread_cond_t thread_condition_var;
-    pthread_mutex_t mutex_lock;
+    pthread_cond_t *thread_condition_var;
+    pthread_mutex_t *mutex_lock;
     std::queue<int *> *client_connections;
     int MAX_MESSAGE_LENGTH;
 } ThreadedArgs;
@@ -21,8 +21,8 @@ int Server::createServer(std::shared_ptr<Server> server){
         return 1;
     }
     ThreadedArgs *args = new ThreadedArgs;
-    args->thread_condition_var = server->thread_condition_var;
-    args->mutex_lock = server->mutex_lock;
+    args->thread_condition_var = &(server->thread_condition_var);
+    args->mutex_lock = &(server->mutex_lock);
     args->client_connections = &server->client_connections;
     args->MAX_MESSAGE_LENGTH = server->MAX_MESSAGE_LENGTH;
      for (int i = 0; i < THREAD_POOL_SIZE; i++)
@@ -55,7 +55,6 @@ int Server::createServer(std::shared_ptr<Server> server){
     if (bind(listenfd, (struct sockaddr *) &serverAddress,
              sizeof(serverAddress)) < 0)
     {
-        printf("fopen failed(): %s\n", strerror(errno));
         error("Failure to bind socket to port");
     }
 
@@ -109,8 +108,8 @@ void * thread_function(void *args)
     ThreadedArgs *server = (ThreadedArgs *) args;
     while (true)
     {
-        pthread_mutex_lock(&server->mutex_lock);
-        pthread_cond_wait(&server->thread_condition_var, &server->mutex_lock);
+        pthread_mutex_lock(server->mutex_lock);
+        pthread_cond_wait(server->thread_condition_var, server->mutex_lock);
         // here we passed the lock since since condition varables and lock work closely. asa thread wait
         // it will releases the lock
         int *front_client;
@@ -121,7 +120,7 @@ void * thread_function(void *args)
             server->client_connections->pop();
             found = true;
         }
-        pthread_mutex_unlock(&server->mutex_lock);
+        pthread_mutex_unlock(server->mutex_lock);
         if (found)
         {
             printf("front_client :  %d\n", *front_client);
