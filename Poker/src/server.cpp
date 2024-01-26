@@ -1,11 +1,33 @@
 #include "network/server.hpp"
-int Server::createServer(){
+
+#include "errno.h"
+
+typedef struct {
+    pthread_cond_t thread_condition_var;
+    pthread_mutex_t mutex_lock;
+    std::queue<int *> *client_connections;
+    int MAX_MESSAGE_LENGTH;
+} ThreadedArgs;
+
+void * handle_connection(int *ptr_connfd, ThreadedArgs *server);
+void * thread_function(void *arg);
+
+Server::Server(){
+    memset(&serverAddress, '\0', sizeof(serverAddress));
+}
+
+int Server::createServer(std::shared_ptr<Server> server){
     if(isServerCreated){
         return 1;
     }
+    ThreadedArgs *args = new ThreadedArgs;
+    args->thread_condition_var = server->thread_condition_var;
+    args->mutex_lock = server->mutex_lock;
+    args->client_connections = &server->client_connections;
+    args->MAX_MESSAGE_LENGTH = server->MAX_MESSAGE_LENGTH;
      for (int i = 0; i < THREAD_POOL_SIZE; i++)
     {
-        if (pthread_create(&thread_pool[i], NULL, &thread_function, NULL) != 0)
+        if (pthread_create(&thread_pool[i], NULL, &thread_function, args) != 0)
         {
             error("Failed to create pthread.");
         }
@@ -24,15 +46,16 @@ int Server::createServer(){
     {
         error("Failed to create socket.");
     }
-    bzero(serverAddress, sizeof(*serverAddress));
-    serverAddress->sin_family = AF_INET;
-    serverAddress->sin_addr.s_addr = htonl(INADDR_ANY); // i.e we are responding to anything
-    serverAddress->sin_port = htons(SERVER_PORT);
+    //bzero(&serverAddress, sizeof(serverAddress));
+    serverAddress.sin_family = AF_INET;
+    serverAddress.sin_addr.s_addr = htonl(INADDR_ANY); // i.e we are responding to anything
+    serverAddress.sin_port = htons(SERVER_PORT);
 
     // tell operating system that this socket will run on this port
-    if (bind(listenfd, (struct sockaddr *)&serverAddress,
-             sizeof(*serverAddress)) < 0)
+    if (bind(listenfd, (struct sockaddr *) &serverAddress,
+             sizeof(serverAddress)) < 0)
     {
+        printf("fopen failed(): %s\n", strerror(errno));
         error("Failure to bind socket to port");
     }
 
@@ -74,15 +97,16 @@ shutdown(listenfd, SHUT_RDWR);
 }
 int * Server::popOutClient(){
     int *client = client_connections.front();
-    server->client_connections.pop();
+    client_connections.pop();
     return client;
 }
-void * thread_function(void *arg, Server *server)
+
+void * thread_function(void *args)
 {
 
     // following will burn the cpu power caz although there is no any new connection
     // for the thread still ask if there any continuosl. To handle this problem we have to introduce condition variables.
-
+    ThreadedArgs *server = (ThreadedArgs *) args;
     while (true)
     {
         pthread_mutex_lock(&server->mutex_lock);
@@ -91,29 +115,32 @@ void * thread_function(void *arg, Server *server)
         // it will releases the lock
         int *front_client;
         bool found = false;
-        if (server->client_connections.size() > 0)
+        if (server->client_connections->size() > 0)
         {
-            front_client = server->popOutClient();
+            front_client = server->client_connections->front();
+            server->client_connections->pop();
             found = true;
         }
         pthread_mutex_unlock(&server->mutex_lock);
         if (found)
         {
             printf("front_client :  %d\n", *front_client);
-            handle_connection(front_client);
+            handle_connection(front_client, server);
         }
     }
+    return NULL;
 }
-void * handle_connection(int *ptr_connfd, Server *server)
+void * handle_connection(int *ptr_connfd, ThreadedArgs *server)
 {
     int connfd = *(ptr_connfd);
+    uint8_t recvline[4096 + 1];
 
     printf("in handle connection connfd %d\n", connfd);
-    memset(server->recvline, 0, server->MAX_MESSAGE_LENGTH);
+    memset(recvline, 0, server->MAX_MESSAGE_LENGTH);
 
     // now read the client's message
 
-    int n = read(connfd, server->recvline, server->MAX_MESSAGE_LENGTH - 1);
+    int n = read(connfd, recvline, server->MAX_MESSAGE_LENGTH - 1);
     if (n < 0)
     {
         error("Unable to read input");
@@ -121,7 +148,7 @@ void * handle_connection(int *ptr_connfd, Server *server)
     }
 
     printf("below is from client--------------\n\n");
-    printf("%s\n", server->recvline);
+    printf("%s\n", recvline);
     // sending the response now
 
     // sleep(5) ;

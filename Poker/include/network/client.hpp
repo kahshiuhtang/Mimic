@@ -16,7 +16,7 @@ public:
     Client(int serverPort);
     Client(int serverPort, std::string sourceAddress);
     int createClient();
-    int Client::sendMessage(char * message);
+    int sendMessage(char * message);
     int shutdown();
 private:
     int sock;
