@@ -1,5 +1,5 @@
 #include "debug.hpp"
-#include "poker/client.hpp"
+#include "network/client.hpp"
 // #define PORT 8080
 
 Client::Client(int serverPort) : 

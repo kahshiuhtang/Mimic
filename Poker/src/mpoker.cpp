@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <set>
 
-#include "poker/client.hpp"
+#include "network/client.hpp"
 
 #define MAX_INPUT_SIZE 128
 
