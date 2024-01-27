@@ -89,7 +89,7 @@ int Server::startServer(){
     Server::killServer();
 };
 int Server::killServer(){
-shutdown(listenfd, SHUT_RDWR);
+    shutdown(listenfd, SHUT_RDWR);
     pthread_mutex_destroy(&mutex_lock);
     pthread_cond_destroy(&thread_condition_var);
     return 0;
@@ -132,7 +132,7 @@ void * thread_function(void *args)
 void * handle_connection(int *ptr_connfd, ThreadedArgs *server)
 {
     int connfd = *(ptr_connfd);
-    uint8_t recvline[4096 + 1];
+    uint8_t recvline[server->MAX_MESSAGE_LENGTH + 1];
 
     printf("in handle connection connfd %d\n", connfd);
     memset(recvline, 0, server->MAX_MESSAGE_LENGTH);

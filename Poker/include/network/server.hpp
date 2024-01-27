@@ -37,7 +37,7 @@ private:
     struct sockaddr_in serverAddress;
     int SERVER_PORT = 8080;
     int THREAD_POOL_SIZE = 20;
-    int SERVER_BACKLOG;
+    int SERVER_BACKLOG = 3;
 
     bool isServerCreated = false;
     pthread_t thread_pool[20];
