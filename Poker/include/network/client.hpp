@@ -20,7 +20,7 @@ public:
     Client(int serverPort);
     Client(int serverPort, std::string sourceAddress);
     int createClient();
-    int setupListeningPort(std::make_shared<Client> client);
+    int setupListeningPort(std::shared_ptr<Client> client);
     int sendMessage(char * message);
     int shutdown();
 
@@ -41,8 +41,8 @@ private:
     int SERVER_BACKLOG = 3;
     pthread_t threadPool[1];
     int THREAD_POOL_SIZE = 1;
+    int client_socket;
     std::queue<int *> client_connections;
-    
 
     std::string serverAddr;
 };

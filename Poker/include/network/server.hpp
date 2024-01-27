@@ -23,6 +23,7 @@ public:
     int createServer(std::shared_ptr<Server>);
     int startServer();
     int killServer();
+    int sendMessage(char *message);
     pthread_cond_t thread_condition_var = PTHREAD_COND_INITIALIZER;
     pthread_mutex_t mutex_lock;
     uint8_t buff[4096 + 1];
@@ -41,4 +42,9 @@ private:
 
     bool isServerCreated = false;
     pthread_t thread_pool[20];
+
+    int CLIENT_PORT =8089;
+    int client_fd;
+    int client_sock;
+    struct sockaddr_in client_addr;
 };
