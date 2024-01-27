@@ -14,6 +14,7 @@ void * thread_function(void *arg);
 
 Server::Server(){
     memset(&serverAddress, '\0', sizeof(serverAddress));
+    memset(&client_addr, '\0', sizeof(client_addr));
 }
 
 int Server::createServer(std::shared_ptr<Server> server){
@@ -63,6 +64,28 @@ int Server::createServer(std::shared_ptr<Server> server){
         error("Listening error");
     }
     isServerCreated = true;
+
+    if((client_sock = socket(AF_INET, SOCK_STREAM, 0)) < 0){
+        debug("[MPoker]: Error creating socket");
+        return -1;
+    }
+    client_addr.sin_family = AF_INET;
+    client_addr.sin_port = htons(CLIENT_PORT);
+
+    //need to change to serverAddr
+    if (inet_pton(AF_INET, "127.0.0.1", &client_addr.sin_addr) <= 0)
+    {
+        printf(
+            "\nInvalid address/ Address not supported \n");
+        return -1;
+    }
+
+    if ((client_fd = connect(client_sock, (struct sockaddr *)&client_addr,
+                            sizeof(client_addr))) < 0)
+    {
+        printf("\nConnection Failed \n");
+        return -1;
+    }
     return 0;
 }
 
@@ -98,6 +121,13 @@ int * Server::popOutClient(){
     int *client = client_connections.front();
     client_connections.pop();
     return client;
+}
+
+int Server::sendMessage(char * message){
+    send(client_sock, message, strlen(message), 0);
+    //valread = read(sock, buffer, 1024);
+    //printf("%s\n", buffer);
+    return 0;
 }
 
 void * thread_function(void *args)

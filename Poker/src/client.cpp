@@ -8,11 +8,14 @@ typedef struct {
     int MAX_MESSAGE_LENGTH;
 } PThreadArgs;
 void  *threadFunction(void * args);
+void * handle_connection(int *ptr_connfd, PThreadArgs *client);
 Client::Client(int serverPort) : 
 SERVER_PORT{serverPort}{
+    memset(&serv_addr, '\0', sizeof(serv_addr));
     memset(&serverAddress, '\0', sizeof(serverAddress));
 }
 Client::Client(int serverPort, std::string sourceAddress) : SERVER_PORT{serverPort}, serverAddr{sourceAddress}{
+    memset(&serv_addr, '\0', sizeof(serv_addr));
     memset(&serverAddress, '\0', sizeof(serverAddress));
 }
 int Client::createClient(){
@@ -40,15 +43,15 @@ int Client::createClient(){
     return 0;
 };
 
-int setupListeningPort(std::make_shared<Client> client){
-    ThreadedArgs *args = new ThreadedArgs;
+int Client::setupListeningPort(std::shared_ptr<Client> client){
+    PThreadArgs *args = new PThreadArgs;
     args->thread_condition_var = &(client->thread_condition_var);
     args->mutex_lock = &(client->mutex_lock);
-    args->client_connections = &server->client_connections;
-    args->MAX_MESSAGE_LENGTH = server->MAX_MESSAGE_LENGTH;
+    args->client_connections = &client->client_connections;
+    args->MAX_MESSAGE_LENGTH = client->MAX_MESSAGE_LENGTH;
     for (int i = 0; i < THREAD_POOL_SIZE; i++)
     {
-        if (pthread_create(&thread_pool[i], NULL, &thread_function, args) != 0)
+        if (pthread_create(&threadPool[i], NULL, &threadFunction, args) != 0)
         {
             error("Failed to create pthread.");
         }
@@ -116,7 +119,7 @@ int Client::shutdown(){
 }
 
 void  *threadFunction(void * args){
-    ThreadedArgs *client = (ThreadedArgs *) args;
+    PThreadArgs *client = (PThreadArgs *) args;
     while (true)
     {
         pthread_mutex_lock(client->mutex_lock);
@@ -141,7 +144,7 @@ void  *threadFunction(void * args){
     return NULL;
 }
 
-void * handle_connection(int *ptr_connfd, ThreadedArgs *client)
+void * handle_connection(int *ptr_connfd, PThreadArgs *client)
 {
     int connfd = *(ptr_connfd);
     uint8_t recvline[client->MAX_MESSAGE_LENGTH + 1];
